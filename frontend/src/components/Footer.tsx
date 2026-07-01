@@ -52,7 +52,7 @@ function Footer() {
                         <ul>
                             <li><a href="#sobre" className='text-muted-text hover:text-accent'>sobre mim</a></li>
                             <li><a href="#tecnologias" className='text-muted-text hover:text-accent'>Tecnologias</a></li>
-                            <li><a href="" className='text-muted-text hover:text-accent'>Projetos</a></li>
+                            <li><a href="#projetos" className='text-muted-text hover:text-accent'>Projetos</a></li>
                             <li><a href="#contato" className='text-muted-text hover:text-accent'>contato</a></li>
                         </ul>
                     </div>

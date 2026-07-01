@@ -90,7 +90,6 @@ function Card({ data: cleanProject }: { data: cleanProject }) {
                     <p className="text-white text-lg font-bold tracking-wide capitalize">
                         {cleanProject.name.replace(/-/g, ' ')}
                     </p>
-
                     <p className="text-xs text-muted-text leading-relaxed line-clamp-3">
                         {cleanProject.description || "Sem descrição informada no repositório."}
                     </p>
@@ -155,10 +154,9 @@ function Projects() {
                         <p className="text-white text-4xl md:text-5xl font-bold">Projetos Próprios</p>
                         <p className="text-muted-text text-sm leading-relaxed">Uma seleção de sistemas, aplicações e APIs desenvolvidos para consolidar conceitos de engenharia de software, design de código e boas práticas de arquitetura. Cada repositório reflete uma etapa da minha evolução técnica na construção de soluções eficientes, escaláveis e integradas de ponta a ponta.</p>
                     </div>
-                    <div className="flex flex-wrap gap-5">
+                    <div className="flex flex-wrap gap-5 justify-center">
                         {projects.map((pro) => (
                             <Card data={pro} />
-
                         ))}
                     </div>
                 </div>
@@ -170,7 +168,7 @@ function Projects() {
                         <p className="text-white text-4xl md:text-5xl font-bold">Projetos de Clientes</p>
                         <p className="text-muted-text text-sm leading-relaxed">Soluções entregues para empresas e empreendedores, do MVP ao sistema em produção — foco em prazo, qualidade e resultado.</p>
                     </div>
-                    <div>
+                    <div className="flex flex-wrap gap-5 justify-center">
                         {projectsFreelance.map((pro) => (
                             <Card data={pro} />
                         ))}

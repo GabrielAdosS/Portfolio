@@ -106,7 +106,6 @@ function TechSkills() {
                         >
                             <Monitor size={18} /> Frontend
                         </button>
-
                         <button
                             onClick={() => choice("Mobile")}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:cursor-pointer ${categories.stacks.includes("Expo")
@@ -116,7 +115,6 @@ function TechSkills() {
                         >
                             <Smartphone size={18} /> Mobile
                         </button>
-
                         <button
                             onClick={() => choice("Backend")}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:cursor-pointer ${categories.stacks.includes("Java")
@@ -126,7 +124,6 @@ function TechSkills() {
                         >
                             <Settings size={18} /> Backend
                         </button>
-
                         <button
                             onClick={() => choice("Dados")}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:cursor-pointer ${categories.stacks.includes("MySQL")
@@ -136,7 +133,6 @@ function TechSkills() {
                         >
                             <Database size={18} /> Banco de Dados
                         </button>
-
                         <button
                             onClick={() => choice("Dev")}
                             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all hover:cursor-pointer ${categories.stacks.includes("Docker")
@@ -161,7 +157,6 @@ function TechSkills() {
                             ))}
                         </div>
                     </div>
-
                 </div>
             </section>
         </>
