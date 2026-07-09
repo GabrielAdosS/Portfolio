@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { SquareArrowOutUpRight, Globe } from "lucide-react"
+import { motion } from 'framer-motion';
 
 interface cleanProject {
     name: string;
@@ -57,11 +58,10 @@ function Card({ data: cleanProject }: { data: cleanProject }) {
 
     const styleBorder = stackList[0] ? firstStack[stackList[0].toLowerCase()] : "";
     const topicsClean = cleanProject.topics.filter(repo => !stackKeyWords.includes(repo) && repo !== "freelance");
-    const width = cleanProject.topics.includes("freelance") ? "w-120" : "w-80";
 
     return (
         <>
-            <div className={`relative overflow-hidden bg-card rounded-xl border border-border-custom ${styleBorder} ${width} p-4 pl-6 flex flex-col gap-2 min-h-[14rem] justify-between`}>
+            <div className={`relative overflow-hidden bg-card rounded-xl border border-border-custom ${styleBorder} w-120 p-6 flex flex-col gap-2 h-[18rem] justify-between`}>
                 <div className="flex flex-col gap-1.5">
                     <div className="flex justify-between items-start gap-4">
                         <div className="flex flex-col gap-1.5 flex-1">
@@ -90,11 +90,11 @@ function Card({ data: cleanProject }: { data: cleanProject }) {
                     <p className="text-white text-lg font-bold tracking-wide capitalize">
                         {cleanProject.name.replace(/-/g, ' ')}
                     </p>
-                    <p className="text-xs text-muted-text leading-relaxed line-clamp-3">
+                    <p className="text-xs text-muted-text leading-relaxed line-clamp-auto">
                         {cleanProject.description || "Sem descrição informada no repositório."}
                     </p>
                 </div>
-                <span className="flex flex-wrap gap-1.5 pt-2 mt-2">
+                <span className="flex flex-wrap gap-1.5 pt-2 mt-auto">
                     {topicsClean.map((topic, index) => (
                         <span key={index} className="text-[10px] px-2 py-0.5 bg-[#1c1d24] text-muted-text/80 rounded text-center border border-border-custom/30">
                             {topic}
@@ -146,36 +146,129 @@ function Projects() {
 
     useEffect
     return (
-        <>
-            <section id="projetos" className="w-full bg-background border-b border-muted-text/20 py-16 flex">
-                <div className="max-w-6xl w-full mx-auto px-6 flex flex-col gap-4">
-                    <div className="flex flex-col gap-2 max-w-2xl">
-                        <p className="text-accent text-xs font-medium uppercase">Portfólio acadêmico & pessoal</p>
-                        <p className="text-white text-4xl md:text-5xl font-bold">Projetos Próprios</p>
-                        <p className="text-muted-text text-sm leading-relaxed">Uma seleção de sistemas, aplicações e APIs desenvolvidos para consolidar conceitos de engenharia de software, design de código e boas práticas de arquitetura. Cada repositório reflete uma etapa da minha evolução técnica na construção de soluções eficientes, escaláveis e integradas de ponta a ponta.</p>
-                    </div>
-                    <div className="flex flex-wrap gap-5 justify-center">
-                        {projects.map((pro) => (
-                            <Card data={pro} />
-                        ))}
-                    </div>
-                </div>
-            </section>
-            <section className="w-full bg-background border-b border-muted-text/20 py-16 flex">
-                <div className="max-w-6xl w-full mx-auto px-6 flex flex-col gap-4">
-                    <div className="flex flex-col gap-2 max-w-2xl">
-                        <p className="text-accent  text-xs font-medium uppercase">Trabalhos comerciais</p>
-                        <p className="text-white text-4xl md:text-5xl font-bold">Projetos de Clientes</p>
-                        <p className="text-muted-text text-sm leading-relaxed">Soluções entregues para empresas e empreendedores, do MVP ao sistema em produção — foco em prazo, qualidade e resultado.</p>
-                    </div>
-                    <div className="flex flex-wrap gap-5 justify-center">
-                        {projectsFreelance.map((pro) => (
-                            <Card data={pro} />
-                        ))}
-                    </div>
-                </div>
-            </section>
-        </>
+       <>
+    <section id="projetos" className="w-full bg-background border-b border-muted-text/20 py-16 flex">
+        <div className="max-w-6xl w-full mx-auto px-6 flex flex-col gap-4">
+            <div className="flex flex-col gap-2 max-w-2xl">
+                <motion.p 
+                    initial={{ opacity: 0, x: -32 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className="text-accent text-xs font-medium uppercase"
+                >
+                    Portfólio acadêmico & pessoal
+                </motion.p>
+                <motion.p 
+                    initial={{ opacity: 0, y: 32 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className="text-white text-4xl md:text-5xl font-bold"
+                >
+                    Projetos Próprios
+                </motion.p>
+                <motion.p 
+                    initial={{ opacity: 0, y: 32 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className="text-muted-text text-sm leading-relaxed"
+                >
+                    Uma seleção de sistemas, aplicações e APIs desenvolvidos para consolidar conceitos de engenharia de software, design de código e boas práticas de arquitetura. Cada repositório reflete uma etapa da minha evolução técnica na construção de soluções eficientes, escaláveis e integradas de ponta a ponta.
+                </motion.p>
+            </div>
+            
+            <motion.div 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={{
+                    hidden: {},
+                    visible: {
+                        transition: {
+                            staggerChildren: 0.1
+                        }
+                    }
+                }}
+                className="flex flex-wrap gap-5 justify-center"
+            >
+                {projects.map((pro, index) => (
+                    <motion.div
+                        key={index}
+                        variants={{
+                            hidden: { opacity: 0, y: 32 },
+                            visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+                        }}
+                    >
+                        <Card data={pro} />
+                    </motion.div>
+                ))}
+            </motion.div>
+        </div>
+    </section>
+
+    <section className="w-full bg-background border-b border-muted-text/20 py-16 flex">
+        <div className="max-w-6xl w-full mx-auto px-6 flex flex-col gap-4">
+            <div className="flex flex-col gap-2 max-w-2xl">
+                <motion.p 
+                    initial={{ opacity: 0, x: -32 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className="text-accent text-xs font-medium uppercase"
+                >
+                    Trabalhos comerciais
+                </motion.p>
+                <motion.p 
+                    initial={{ opacity: 0, y: 32 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className="text-white text-4xl md:text-5xl font-bold"
+                >
+                    Projetos de Clientes
+                </motion.p>
+                <motion.p 
+                    initial={{ opacity: 0, y: 32 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    className="text-muted-text text-sm leading-relaxed"
+                >
+                    Soluções entregues para empresas e empreendedores, do MVP ao sistema em produção — foco em prazo, qualidade e resultado.
+                </motion.p>
+            </div>
+
+            <motion.div 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={{
+                    hidden: {},
+                    visible: {
+                        transition: {
+                            staggerChildren: 0.1
+                        }
+                    }
+                }}
+                className="flex flex-wrap gap-5 justify-center"
+            >
+                {projectsFreelance.map((pro, index) => (
+                    <motion.div
+                        key={index}
+                        variants={{
+                            hidden: { opacity: 0, y: 32 },
+                            visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+                        }}
+                    >
+                        <Card data={pro} />
+                    </motion.div>
+                ))}
+            </motion.div>
+        </div>
+    </section>
+</>
     )
 }
 
