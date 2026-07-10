@@ -190,9 +190,9 @@ function Banner() {
                         className="flex justify-center"
                     >
                         <img
-                            src="src/assets/hero.png"
+                            src="src/assets/me.png"
                             alt="Perfil do Gabriel"
-                            className="w-64 h-64 md:w-80 md:h-80 rounded-2xl border-2 border-accent/30 object-cover shadow-2xl"
+                            className="w-64 h-64 md:w-80 md:h-80 rounded-2xl border-2 border-accent/30 object-cover object-top shadow-2xl"
                         />
                     </motion.div>
 
