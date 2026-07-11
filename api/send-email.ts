@@ -4,19 +4,12 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Na Vercel, o método vem em req.method
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Método não permitido." });
   }
 
   try {
-    console.log("Entrou na API da Vercel");
-
-    // CRUCIAL: Na Vercel, o body JÁ VEM PARSEADO automaticamente!
-    // Não use await req.json() ou req.text(), isso trava a execução.
     const { name, email, subject, message } = req.body;
-
-    console.log("Dados recebidos no back:", { name, email, subject, message });
 
     if (!name || !email || !subject || !message) {
       return res.status(400).json({ error: "Campos obrigatórios ausentes." });

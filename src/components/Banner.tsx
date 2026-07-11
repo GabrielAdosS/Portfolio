@@ -1,14 +1,17 @@
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { Mail, Download, MoveDown, Check, X, ExternalLink } from 'lucide-react';
+import { Mail, Download, MoveDown, Check, X, ExternalLink, AlertCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function Banner() {
     const API_BASE = "/api";
-    const [showToast, setShowToast] = useState(false);
-    const [modal, setModal] = useState(false);
-    const [animate, setAnimate] = useState("");
     const email = "gabriel.17.set.2005@gmail.com";
+
+    const [toastMessage, setToastMessage] = useState<string | null>(null);
+    const [toastType, setToastType] = useState<"success" | "error">("success");
+    const [animate, setAnimate] = useState("");
+
+    const [modal, setModal] = useState(false);
     const [isSending, setIsSending] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
@@ -16,23 +19,23 @@ function Banner() {
         message: ""
     });
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const { name, value } = e.target;
+    const triggerToast = (message: string, type: "success" | "error" = "success") => {
+        setToastMessage(message);
+        setToastType(type);
+        setAnimate("animate-fade-in-up");
 
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
+        setTimeout(() => {
+            setAnimate("animate-fade-in-bottom");
+        }, 2000);
+
+        setTimeout(() => {
+            setToastMessage(null);
+        }, 2500);
     };
 
-    const handleDownloadCV = () => {
-        window.open("/Gabriel Antonio dos Santos.pdf", "_blank");
-
-        fetch(`${API_BASE}/cv-download`, {
-            method: "POST"
-        }).catch(error => {
-            console.error(error);
-        });
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     const handleFormSubmit = async (e: React.FormEvent) => {
@@ -53,22 +56,25 @@ function Banner() {
                 body: JSON.stringify(payload),
             });
 
-            if (!response.ok) throw new Error('Erro no servidor.');
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || 'Erro inesperado no servidor.');
+            }
+
             setFormData({ name: "", emailInput: "", message: "" });
             setModal(false);
-            alert("Mensagem enviada com sucesso!");
+            triggerToast("Mensagem enviada com sucesso!", "success");
 
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            alert("Erro ao enviar.");
+            triggerToast(error.message || "Erro ao enviar.", "error");
         } finally {
             setIsSending(false);
         }
     };
 
-    const toggleModal = () => {
-        setModal(prev => !prev);
-    };
+    const toggleModal = () => setModal(prev => !prev);
 
     useEffect(() => {
         if (modal) {
@@ -76,28 +82,18 @@ function Banner() {
         } else {
             document.body.classList.remove("overflow-hidden");
         }
-        return () => {
-            document.body.classList.remove("overflow-hidden");
-        };
+        return () => document.body.classList.remove("overflow-hidden");
     }, [modal]);
 
     const handleCopyEmail = async () => {
         try {
             await navigator.clipboard.writeText(email);
-            setShowToast(true);
-            setAnimate("animate-fade-in-up")
-
-            setTimeout(() => {
-                setAnimate("animate-fade-in-bottom")
-            }, 2000)
-
-            setTimeout(() => {
-                setShowToast(false);
-            }, 2500);
+            triggerToast("E-mail copiado com sucesso!", "success");
         } catch (err) {
             console.error("Erro ao copiar o e-mail: ", err);
+            triggerToast("Não foi possível copiar o e-mail.", "error");
         }
-    }
+    };
 
     return (
         <>
@@ -109,68 +105,40 @@ function Banner() {
                         animate="visible"
                         variants={{
                             hidden: { opacity: 0 },
-                            visible: {
-                                opacity: 1,
-                                transition: {
-                                    staggerChildren: 0.1
-                                }
-                            }
+                            visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
                         }}
                         className="flex flex-col gap-y-4 max-w-xl"
                     >
-                        <motion.p
-                            variants={{
-                                hidden: { opacity: 0, y: 32 },
-                                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
-                            }}
-                            className="text-accent text-xs font-medium uppercase"
-                        >
+                        <motion.p variants={{ hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} className="text-accent text-xs font-medium uppercase">
                             OLÁ, ME CHAMO
                         </motion.p>
 
-                        <motion.h1
-                            variants={{
-                                hidden: { opacity: 0, y: 32 },
-                                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
-                            }}
-                            className="text-white text-5xl md:text-7xl font-bold tracking-tight"
-                        >
+                        <motion.h1 variants={{ hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} className="text-white text-5xl md:text-7xl font-bold tracking-tight">
                             Gabriel <span className="text-accent">Antonio</span>
                         </motion.h1>
 
-                        <motion.p
-                            variants={{
-                                hidden: { opacity: 0, y: 32 },
-                                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
-                            }}
-                            className="text-muted-text text-base leading-relaxed"
-                        >
+                        <motion.p variants={{ hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} className="text-muted-text text-base leading-relaxed">
                             Desenvolvedor Full-Stack focado em Backend e no ecossistema Java. Apaixonado por construir arquiteturas sólidas, eficientes e seguras, além de criar interfaces fluidas e integradas para entregar soluções completas de ponta a ponta.
                         </motion.p>
 
-                        <motion.span
-                            variants={{
-                                hidden: { opacity: 0, y: 32 },
-                                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
-                            }}
-                            className="flex gap-4 mt-2"
-                        >
+                        <motion.span variants={{ hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} className="flex gap-4 mt-2">
                             <button onClick={toggleModal} className="bg-accent rounded-md text-center text-sm font-semibold text-black px-5 py-2.5 transition-all hover:opacity-90 hover:cursor-pointer">
                                 Fale comigo
                             </button>
-                            <button onClick={handleDownloadCV} className="flex gap-2 px-5 py-2.5 rounded-md text-sm font-medium border border-border-custom text-white bg-[#13141a]/40 transition-all hover:text-accent hover:border-accent hover:cursor-pointer">
+                            <a
+                                href="/Gabriel Antonio dos Santos.pdf"
+                                download="Gabriel Antonio dos Santos.pdf"
+                                onClick={() => {
+                                    fetch(`${API_BASE}/cv-download`, { method: "POST" }).catch(console.error);
+                                }}
+                                className="flex gap-2 px-5 py-2.5 rounded-md text-sm font-medium border border-border-custom text-white bg-[#13141a]/40 transition-all hover:text-accent hover:border-accent hover:cursor-pointer"
+                            >
                                 <Download size={18} />
                                 Currículo
-                            </button>
+                            </a>
                         </motion.span>
 
-                        <motion.span
-                            variants={{
-                                hidden: { opacity: 0, y: 32 },
-                                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
-                            }}
-                            className="flex gap-4 mt-2"
-                        >
+                        <motion.span variants={{ hidden: { opacity: 0, y: 32 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6 } } }} className="flex gap-4 mt-2">
                             <a href="https://github.com/GabrielAdosS" target="_blank" rel="noreferrer" className="text-muted-text hover:text-accent transition-colors">
                                 <FaGithub size={20} />
                             </a>
@@ -183,40 +151,27 @@ function Banner() {
                         </motion.span>
                     </motion.div>
 
-                    <motion.div
-                        initial={{ opacity: 0, x: 32 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                        className="flex justify-center"
-                    >
-                        <img
-                            src="src/assets/me.png"
-                            alt="Perfil do Gabriel"
-                            className="w-64 h-64 md:w-80 md:h-80 rounded-2xl border-2 border-accent/30 object-cover object-top shadow-2xl"
-                        />
+                    <motion.div initial={{ opacity: 0, x: 32 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} className="flex justify-center">
+                        <img src="src/assets/me.png" alt="Perfil do Gabriel" className="w-64 h-64 md:w-80 md:h-80 rounded-2xl border-2 border-accent/30 object-cover object-top shadow-2xl" />
                     </motion.div>
-
                 </div>
 
-                <motion.span
-                    initial={{ opacity: 0, y: 100 }}
-                    animate={{ opacity: 1, y: [0, -12, 0] }}
-                    transition={{
-                        opacity: { duration: 0.65, ease: "easeOut", delay: 1.2 },
-                        y: { duration: 1.5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut", delay: 1.2 }
-                    }}
-                    className="bg-[#13141a]/40 border border-border-custom p-2 rounded-full absolute bottom-7 flex items-center justify-center"
-                >
+                <motion.span initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: [0, -12, 0] }} transition={{ opacity: { duration: 0.65, delay: 1.2 }, y: { duration: 1.5, repeat: Infinity, repeatType: "mirror", delay: 1.2 } }} className="bg-[#13141a]/40 border border-border-custom p-2 rounded-full absolute bottom-7 flex items-center justify-center">
                     <MoveDown size={24} className="text-white" />
                 </motion.span>
 
-                {showToast && (
+                {toastMessage && (
                     <div className={`fixed bottom-6 right-6 z-70 flex items-center gap-2.5 bg-card border border-border-custom px-4 py-2.5 rounded-xl shadow-xl ${animate}`}>
-                        <div className="flex items-center justify-center p-1 bg-emerald-500/10 text-emerald-400 rounded-lg">
-                            <Check size={14} strokeWidth={3} />
+                        <div className={`flex items-center justify-center p-1 rounded-lg ${toastType === "success" ? "bg-emerald-500/10 text-emerald-400" : "bg-rose-500/10 text-rose-400"
+                            }`}>
+                            {toastType === "success" ? (
+                                <Check size={14} strokeWidth={3} />
+                            ) : (
+                                <AlertCircle size={14} strokeWidth={3} />
+                            )}
                         </div>
                         <span className="text-white text-xs font-medium tracking-wide">
-                            E-mail copiado com sucesso!
+                            {toastMessage}
                         </span>
                     </div>
                 )}
@@ -247,19 +202,17 @@ function Banner() {
                                             <li>
                                                 <a href="https://github.com/GabrielAdosS" target="_blank" rel="noreferrer" className="flex gap-2 justify-start items-center text-muted-text hover:text-accent">
                                                     <FaGithub size={18} className='text-accent' />
-                                                    github
-                                                    <ExternalLink size={18} />
+                                                    github <ExternalLink size={18} />
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="https://www.linkedin.com/in/gabriel-antonio-742869285/" className='flex gap-2 justify-start items-center text-muted-text hover:text-accent'>
                                                     <FaLinkedin size={18} className='text-accent' />
-                                                    Linkedin
-                                                    <ExternalLink size={18} />
+                                                    Linkedin <ExternalLink size={18} />
                                                 </a>
                                             </li>
                                             <li>
-                                                <button onClick={handleCopyEmail} className='flex gap-2 justify-start items-center text-muted-text hover:text-accent cursor-pointer'>
+                                                <button type="button" onClick={handleCopyEmail} className='flex gap-2 justify-start items-center text-muted-text hover:text-accent cursor-pointer'>
                                                     <Mail size={18} className='text-accent' />
                                                     <span>gabriel.17.set.2005@gmail.com</span>
                                                 </button>

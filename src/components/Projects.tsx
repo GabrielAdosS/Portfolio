@@ -128,8 +128,6 @@ function Projects() {
                 const freelance = projectsFilter.filter(repo => repo.topics.includes("freelance"));
                 const projectsFilterFreelance = projectsFilter.filter(repo => !repo.topics.includes("freelance"));
 
-                console.log(freelance)
-
                 const projectsOrbder = projectsFilterFreelance.sort((a, b) => {
                     const yearA = a.pushed_at ? a.pushed_at.substring(0, 4) : "";
                     const yearB = b.pushed_at ? b.pushed_at.substring(0, 4) : "";
