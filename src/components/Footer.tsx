@@ -22,7 +22,6 @@ function Footer() {
                 setShowToast(false);
             }, 2500);
         } catch (err) {
-            console.error("Erro ao copiar o e-mail: ", err);
         }
     };
     return (

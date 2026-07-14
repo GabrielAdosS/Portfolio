@@ -137,8 +137,7 @@ function Projects() {
                 setProjectsFreelance(freelance);
                 setProjects(projectsOrbder);
             })
-            .catch((error) => {
-                console.error("Erro ao buscar dados:", error);
+            .catch(() => {
             });
     }, []);
 

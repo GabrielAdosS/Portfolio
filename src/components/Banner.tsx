@@ -68,8 +68,7 @@ function Banner() {
             triggerToast("Mensagem enviada com sucesso!", "success");
 
         } catch (error: any) {
-            console.error(error);
-            triggerToast(error.message || "Erro ao enviar.", "error");
+            triggerToast("Erro ao enviar a mensagem.", "error");
         } finally {
             setIsSending(false);
         }
@@ -91,7 +90,6 @@ function Banner() {
             await navigator.clipboard.writeText(email);
             triggerToast("E-mail copiado com sucesso!", "success");
         } catch (err) {
-            console.error("Erro ao copiar o e-mail: ", err);
             triggerToast("Não foi possível copiar o e-mail.", "error");
         }
     };
@@ -130,7 +128,7 @@ function Banner() {
                                 href="/Gabriel Antonio dos Santos.pdf"
                                 download="Gabriel Antonio dos Santos.pdf"
                                 onClick={() => {
-                                    fetch(`${API_BASE}/cv-download`, { method: "POST" }).catch(console.error);
+                                    fetch(`${API_BASE}/cv-download`, { method: "POST" }).catch(() => triggerToast("erro ao tentar baixar currículo", "error"));
                                 }}
                                 className="flex gap-2 px-5 py-2.5 rounded-md text-sm font-medium border border-border-custom text-white bg-[#13141a]/40 transition-all hover:text-accent hover:border-accent hover:cursor-pointer"
                             >
