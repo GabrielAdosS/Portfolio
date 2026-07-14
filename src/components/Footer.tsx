@@ -50,7 +50,7 @@ function Footer() {
                     >
                         <p className='text-white'><span className='text-accent'>{"<"}</span>Gabriel<span className='text-accent'>{"/>"}</span></p>
                         <p className='text-muted-text text-base leading-relaxed w-90'>Desenvolvedor Full-Stack com forte foco em Backend. Transformo ideias complexas em aplicações completas, unindo sistemas robustos e seguros em Java a interfaces modernas, ágeis e prontas para o mercado.</p>
-                        <a href="https://github.com/GabrielAdosS" className='bg-[#13141a]/40 text-muted-text hover:text-accent hover:border-accent transition-colors border border-border-custom h-7 w-7 flex justify-center items-center rounded-md'><FaGithub size={18} /></a>
+
                     </motion.div>
 
                     <motion.div
@@ -63,6 +63,9 @@ function Footer() {
                         <p className='text-white'>CONTATO</p>
                         <ul className='flex flex-col gap-3'>
                             <li><a href="https://www.linkedin.com/in/gabriel-antonio-742869285/" className='flex gap-2 justify-start items-center text-muted-text hover:text-accent'><FaLinkedin size={18} className='text-accent' />Linkedin</a></li>
+                            <li>
+                                <a href="https://github.com/GabrielAdosS" className='flex gap-2 justify-start items-center text-muted-text hover:text-accent'><FaGithub size={18} className='text-accent' />Github</a>
+                            </li>
                             <li>
                                 <button onClick={handleCopyEmail} className='flex gap-2 justify-start items-center text-muted-text hover:text-accent cursor-pointer'>
                                     <Mail size={18} className='text-accent' />

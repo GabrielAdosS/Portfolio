@@ -6,6 +6,25 @@ function Header() {
     const [isOpen, setIsOpen] = useState(false);
     const toggleMenu = () => setIsOpen(!isOpen);
 
+    const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+        e.preventDefault();
+        setIsOpen(false);
+
+        setTimeout(() => {
+            const element = document.getElementById(targetId);
+            if (element) {
+                const headerOffset = 64;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }, 100);
+    };
+
     return (
         <>
             <motion.header
@@ -79,16 +98,16 @@ function Header() {
                             <nav className="px-6 py-6">
                                 <ul className="flex flex-col gap-y-5">
                                     <li className="text-muted-text hover:text-white text-lg transition-colors">
-                                        <a href="#sobre" onClick={() => setIsOpen(false)}>Sobre</a>
+                                        <a href="#sobre" onClick={(e) => handleLinkClick(e, 'sobre')}>Sobre</a>
                                     </li>
                                     <li className="text-muted-text hover:text-white text-lg transition-colors">
-                                        <a href="#tecnologias" onClick={() => setIsOpen(false)}>Tecnologias</a>
+                                        <a href="#tecnologias" onClick={(e) => handleLinkClick(e, 'tecnologias')}>Tecnologias</a>
                                     </li>
                                     <li className="text-muted-text hover:text-white text-lg transition-colors">
-                                        <a href="#projetos" onClick={() => setIsOpen(false)}>Projetos</a>
+                                        <a href="#projetos" onClick={(e) => handleLinkClick(e, 'projetos')}>Projetos</a>
                                     </li>
                                     <li className="text-muted-text hover:text-white text-lg transition-colors">
-                                        <a href="#contato" onClick={() => setIsOpen(false)}>Contato</a>
+                                        <a href="#contato" onClick={(e) => handleLinkClick(e, 'contato')}>Contato</a>
                                     </li>
                                 </ul>
                             </nav>
