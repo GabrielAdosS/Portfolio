@@ -2,7 +2,7 @@
 
 Desenvolvi meu portfólio pessoal utilizando React e TypeScript, com foco total em performance, animações fluidas e uma experiência de usuário limpa. No projeto, integrei a API do GitHub para listar meus repositórios de forma dinâmica e configurei um sistema seguro de envio de e-mails para facilitar o contato direto comigo. É o reflexo das tecnologias que domino e de como organizo meu fluxo de desenvolvimento!
 
-- (https://gabriel-antonio.vercel.app/)
+**Link:** https://gabriel-antonio.vercel.app/
 
 ---
 
