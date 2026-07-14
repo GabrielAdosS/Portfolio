@@ -2,6 +2,7 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { Mail, Download, MoveDown, Check, X, ExternalLink, AlertCircle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import foto from '../assets/me.png';
 
 function Banner() {
     const API_BASE = "/api";
@@ -152,7 +153,7 @@ function Banner() {
                     </motion.div>
 
                     <motion.div initial={{ opacity: 0, x: 32 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} className="flex justify-center">
-                        <img src="src/assets/me.png" alt="Perfil do Gabriel" className="w-64 h-64 md:w-80 md:h-80 rounded-2xl border-2 border-accent/30 object-cover object-top shadow-2xl" />
+                        <img src={foto} alt="Perfil do Gabriel" className="w-64 h-64 md:w-80 md:h-80 rounded-2xl border-2 border-accent/30 object-cover object-top shadow-2xl" />
                     </motion.div>
                 </div>
 
