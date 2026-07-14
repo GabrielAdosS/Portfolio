@@ -96,7 +96,7 @@ function Banner() {
 
     return (
         <>
-            <section className="w-full h-screen bg-background flex items-center justify-center relative" id='sobre'>
+            <section className="w-full min-h-screen bg-background flex flex-col md:flex-row items-center justify-center relative px-6 pt-24 pb-12 md:py-0 overflow-hidden" id='sobre'>
                 <div className="max-w-6xl w-full mx-auto px-6 flex flex-col-reverse lg:flex-row items-center justify-between gap-12">
 
                     <motion.div
@@ -155,7 +155,7 @@ function Banner() {
                     </motion.div>
                 </div>
 
-                <motion.span initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: [0, -12, 0] }} transition={{ opacity: { duration: 0.65, delay: 1.2 }, y: { duration: 1.5, repeat: Infinity, repeatType: "mirror", delay: 1.2 } }} className="bg-[#13141a]/40 border border-border-custom p-2 rounded-full absolute bottom-7 flex items-center justify-center">
+                <motion.span initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: [0, -12, 0] }} transition={{ opacity: { duration: 0.65, delay: 1.2 }, y: { duration: 1.5, repeat: Infinity, repeatType: "mirror", delay: 1.2 } }} className="bg-[#13141a]/40 border border-border-custom p-2 rounded-full absolute bottom-7 flex items-center justify-center hidden md:block">
                     <MoveDown size={24} className="text-white" />
                 </motion.span>
 
@@ -177,50 +177,65 @@ function Banner() {
 
                 <AnimatePresence>
                     {modal && (
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className='w-full h-[100vh] fixed backdrop-blur-sm z-60 flex justify-center items-center flex-col gap-4'>
-                            <motion.div initial={{ opacity: 0, y: 50, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 30, scale: 0.95 }} transition={{ type: "spring", duration: 0.4 }} className='min-w-md bg-background border border-border-custom rounded-md p-5 flex flex-col justify-center gap-5'>
+                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className='fixed inset-0 backdrop-blur-sm z-60 flex flex-col items-center justify-start sm:justify-center gap-4 px-4 py-8 overflow-y-auto bg-black/40'>
+                            <motion.div initial={{ opacity: 0, y: 50, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 30, scale: 0.95 }} transition={{ type: "spring", duration: 0.4 }} className='w-full max-w-[90vw] sm:max-w-md bg-background border border-border-custom rounded-md p-5 flex flex-col justify-center gap-5'>
                                 <p className='font-semibold text-white text-2xl text-center'>Me mande uma mensagem!</p>
+
                                 <form onSubmit={handleFormSubmit} className='flex gap-4 flex-col'>
                                     <div className='flex flex-col gap-2'>
-                                        <label className='text-white text-bold'>Seu nome:</label>
-                                        <input name="name" type="text" value={formData.name} onChange={handleInputChange} className='bg-card border border-border-custom rounded-md text-muted-text px-1 py-1.5' placeholder='Digite aqui' />
+                                        <label className='text-white font-bold'>Seu nome:</label>
+                                        <input name="name" type="text" value={formData.name} onChange={handleInputChange} className='bg-card border border-border-custom rounded-md text-muted-text px-3 py-1.5 text-sm' placeholder='Digite aqui' />
                                     </div>
+
                                     <div className='flex flex-col gap-2'>
-                                        <label className='text-white text-bold'>Seu e-mail:</label>
-                                        <input name="emailInput" type="email" value={formData.emailInput} onChange={handleInputChange} className='bg-card border border-border-custom rounded-md text-muted-text px-1 py-1.5' placeholder='exemplo@email.com' />
+                                        <label className='text-white font-bold'>Seu e-mail:</label>
+                                        <input name="emailInput" type="email" value={formData.emailInput} onChange={handleInputChange} className='bg-card border border-border-custom rounded-md text-muted-text px-3 py-1.5 text-sm' placeholder='exemplo@email.com' />
                                     </div>
+
                                     <div className='flex flex-col gap-2'>
-                                        <label className='text-white text-bold'>Mensagem:</label>
-                                        <textarea name="message" placeholder='Sua mensagem aqui!' value={formData.message} onChange={handleInputChange} className='bg-card border border-border-custom rounded-md text-muted-text px-1 py-1.5 resize-none' rows={5}></textarea>
+                                        <label className='text-white font-bold'>Mensagem:</label>
+                                        <textarea name="message" placeholder='Sua mensagem aqui!' value={formData.message} onChange={handleInputChange} className='bg-card border border-border-custom rounded-md text-muted-text px-3 py-1.5 text-sm resize-none' rows={4}></textarea>
                                     </div>
-                                    <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={isSending} className='bg-accent rounded-md text-black font-semibold p-2.5 cursor-pointer disabled:opacity-50 text-sm'>
+
+                                    <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" disabled={isSending} className='bg-accent rounded-md text-black font-semibold p-2.5 cursor-pointer disabled:opacity-50 text-sm mt-1'>
                                         {isSending ? "Enviando..." : "Enviar mensagem"}
                                     </motion.button>
+
                                     <div>
                                         <ul className='flex flex-col gap-3'>
                                             <li>
-                                                <a href="https://github.com/GabrielAdosS" target="_blank" rel="noreferrer" className="flex gap-2 justify-start items-center text-muted-text hover:text-accent">
-                                                    <FaGithub size={18} className='text-accent' />
-                                                    github <ExternalLink size={18} />
+                                                <a href="https://github.com/GabrielAdosS" target="_blank" rel="noreferrer" className="flex gap-2 justify-start items-center text-muted-text hover:text-accent text-sm break-all">
+                                                    <FaGithub size={18} className='text-accent flex-shrink-0' />
+                                                    <span>github</span> <ExternalLink size={14} className="flex-shrink-0" />
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="https://www.linkedin.com/in/gabriel-antonio-742869285/" className='flex gap-2 justify-start items-center text-muted-text hover:text-accent'>
-                                                    <FaLinkedin size={18} className='text-accent' />
-                                                    Linkedin <ExternalLink size={18} />
+                                                <a href="https://www.linkedin.com/in/gabriel-antonio-742869285/" target="_blank" rel="noreferrer" className='flex gap-2 justify-start items-center text-muted-text hover:text-accent text-sm break-all'>
+                                                    <FaLinkedin size={18} className='text-accent flex-shrink-0' />
+                                                    <span>Linkedin</span> <ExternalLink size={14} className="flex-shrink-0" />
                                                 </a>
                                             </li>
                                             <li>
-                                                <button type="button" onClick={handleCopyEmail} className='flex gap-2 justify-start items-center text-muted-text hover:text-accent cursor-pointer'>
-                                                    <Mail size={18} className='text-accent' />
-                                                    <span>gabriel.17.set.2005@gmail.com</span>
+                                                <button type="button" onClick={handleCopyEmail} className='flex gap-2 justify-start items-center text-muted-text hover:text-accent cursor-pointer text-xs sm:text-sm text-left break-all'>
+                                                    <Mail size={18} className='text-accent flex-shrink-0' />
+                                                    <span className="truncate">gabriel.17.set.2005@gmail.com</span>
                                                 </button>
                                             </li>
                                         </ul>
                                     </div>
                                 </form>
                             </motion.div>
-                            <motion.button initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} whileHover={{ scale: 1.1, rotate: 90 }} whileTap={{ scale: 0.9 }} type="button" className='cursor-pointer w-10 h-10 rounded-full bg-background border border-border-custom flex justify-center items-center self-center' onClick={toggleModal}>
+
+                            <motion.button
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                whileHover={{ scale: 1.1, rotate: 90 }}
+                                whileTap={{ scale: 0.9 }}
+                                type="button"
+                                className='cursor-pointer w-10 h-10 aspect-square rounded-full bg-background border border-border-custom flex justify-center items-center mb-auto sm:mb-0 flex-shrink-0'
+                                onClick={toggleModal}
+                            >
                                 <X size={18} className='text-white' />
                             </motion.button>
                         </motion.div>

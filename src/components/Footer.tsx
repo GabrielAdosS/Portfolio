@@ -39,7 +39,7 @@ function Footer() {
                             }
                         }
                     }}
-                    className="max-w-6xl mx-auto px-6 w-full flex justify-between"
+                    className="max-w-6xl mx-auto md:px-6 px-3 w-full flex justify-between flex-col md:flex-row gap-10"
                 >
                     <motion.div
                         variants={{

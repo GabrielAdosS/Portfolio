@@ -61,7 +61,7 @@ function Card({ data: cleanProject }: { data: cleanProject }) {
 
     return (
         <>
-            <div className={`relative overflow-hidden bg-card rounded-xl border border-border-custom ${styleBorder} w-120 p-6 flex flex-col gap-2 h-[18rem] justify-between`}>
+            <div className={`relative overflow-hidden bg-card rounded-xl border border-border-custom ${styleBorder} w-85 md:w-120 p-6 flex flex-col gap-2 md:h-[18rem] justify-between`}>
                 <div className="flex flex-col gap-1.5">
                     <div className="flex justify-between items-start gap-4">
                         <div className="flex flex-col gap-1.5 flex-1">
