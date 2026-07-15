@@ -50,6 +50,12 @@ function Banner() {
             message: formData.message
         };
 
+        
+        if(!payload.name || !payload.email || !payload.message) {
+            triggerToast("Preencha todos os campos", "error");
+            setIsSending(false);
+            return;
+        }
         try {
             const response = await fetch(`${API_BASE}/send-email`, {
                 method: 'POST',
