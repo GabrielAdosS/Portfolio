@@ -2,6 +2,8 @@
 
 Desenvolvi meu portfólio pessoal utilizando React e TypeScript, com foco total em performance, animações fluidas e uma experiência de usuário limpa. No projeto, integrei a API do GitHub para listar meus repositórios de forma dinâmica e configurei um sistema seguro de envio de e-mails para facilitar o contato direto comigo. É o reflexo das tecnologias que domino e de como organizo meu fluxo de desenvolvimento!
 
+**Link:** https://gabriel-antonio.vercel.app/
+
 ---
 
 ## ✨ Funcionalidades
@@ -36,7 +38,6 @@ Desenvolvi meu portfólio pessoal utilizando React e TypeScript, com foco total 
 ### Backend / API (Serverless)
 - [Vercel Functions](https://vercel.com/docs/functions) (`/api`) — endpoints serverless em TypeScript
 - [Resend](https://resend.com/) — envio de e-mails transacionais
-- [isomorphic-dompurify](https://www.npmjs.com/package/isomorphic-dompurify) — sanitização de dados do formulário de contato contra XSS
 
 ### Ferramentas de desenvolvimento
 - [oxlint](https://oxc.rs/docs/guide/usage/linter.html) — linting
